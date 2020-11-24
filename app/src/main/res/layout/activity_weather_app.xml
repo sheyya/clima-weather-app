@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WeatherApp"
+    android:background="@drawable/day"
+    android:id="@+id/mainbg"
+    >
+
+    <ImageView
+        android:id="@+id/nightbg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/night"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/daybg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/day" />
+
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333"
+        app:srcCompat="@drawable/clima" />
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="280dp"
+        android:layout_height="318dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nightbg"
+        app:layout_constraintVertical_bias="0.346">
+
+        <TextView
+            android:id="@+id/tempTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/regular"
+            android:shadowColor="@color/shadow"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="17"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="55sp" />
+
+        <ImageView
+            android:id="@+id/iconImg"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/descriptionTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/cityTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/semibold"
+            android:shadowColor="@color/shadow"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="17"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/countryTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/light"
+            android:shadowColor="@color/shadow"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="17"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wind"
+        android:layout_width="66dp"
+        android:layout_height="80dp"
+        android:background="@drawable/layoutshape"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:shadowColor="@color/shadow"
+        android:shadowDx="0"
+        android:shadowDy="3"
+        android:shadowRadius="17"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nightbg"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88">
+
+        <ImageView
+            android:id="@+id/winImg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="10sp"
+            app:srcCompat="@drawable/umbrella" />
+
+        <TextView
+            android:id="@+id/windspeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medium"
+            android:text="4.07 m/s"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sunrise"
+        android:layout_width="66dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/layoutshape"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:shadowColor="@color/shadow"
+        android:shadowDx="0"
+        android:shadowDy="3"
+        android:shadowRadius="17"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nightbg"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/wind"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88">
+
+        <ImageView
+            android:id="@+id/sunriseimg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="10sp"
+            app:srcCompat="@drawable/sunrise"
+            />
+
+        <TextView
+            android:id="@+id/sunrisetxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medium"
+            android:text="06.00 pm"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sunset"
+        android:layout_width="66dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/layoutshape"
+        android:orientation="vertical"
+        android:paddingVertical="5dp"
+        android:shadowColor="@color/shadow"
+        android:shadowDx="0"
+        android:shadowDy="3"
+        android:shadowRadius="17"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/nightbg"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/sunrise"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.88">
+
+        <ImageView
+            android:id="@+id/sunsteimg"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginHorizontal="10sp"
+            app:srcCompat="@drawable/sunset"
+            />
+
+        <TextView
+            android:id="@+id/sunsettxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/medium"
+            android:text="06.00 pm"
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:text="Logout"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:background="@drawable/button"
+        android:backgroundTint="@color/dark_bluetp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.949"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nightbg"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/regular"
+        android:text="Sheshan Narada"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nightbg"
+        app:layout_constraintVertical_bias="0.142" />
+
+    <TextView
+        android:id="@+id/Greeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Hi,"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nightbg"
+        app:layout_constraintVertical_bias="0.115" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">clima</string>
+    <string name="API_KEY">0a43a3ebfefe8ef672268c156b88cf64</string>
+</resources>
