@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity  implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.loginLink:startActivity(new Intent(this, LoginActivity.class));
+            case R.id.loginLink:startActivity(new Intent(this, LoginActivity.class)); finish();
                 break;
             case  R.id.regBtn:registerUser();
                 break;

@@ -57,7 +57,7 @@ public class WeatherApp extends AppCompatActivity {
     LocationManager locationManager;
     RequestQueue requestQueue;
 
-    TextView _city, _description, _country, _temp, _windspeed, _sunrisetxt, _sunsettxt, _name, _greeting;
+    TextView _city, _description, _country, _temp, _windspeed, _sunrisetxt, _sunsettxt, _name, _greeting, _logouttxt;
     EditText _searchTxt;
     String _lon, _lat;
     ImageView _icon, _night, _day, _logout, _searchBtn;
@@ -78,6 +78,7 @@ public class WeatherApp extends AppCompatActivity {
         _sunsettxt = (TextView) findViewById(R.id.sunsettxt);
         _sunrisetxt = (TextView) findViewById(R.id.sunrisetxt);
         _temp = (TextView) findViewById(R.id.tempTxt);
+        _logouttxt = (TextView) findViewById(R.id.logouttxt);
         _icon = (ImageView) findViewById(R.id.iconImg);
         _night = (ImageView) findViewById(R.id.nightbg);
         _day = (ImageView) findViewById(R.id.daybg);
@@ -122,6 +123,16 @@ public class WeatherApp extends AppCompatActivity {
 
 
         _logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.logout:
+                        signOutGoogle();
+                        break;
+                }
+            }
+        });
+_logouttxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
@@ -299,7 +310,9 @@ public class WeatherApp extends AppCompatActivity {
                         citynew = "Wijayapura";
                         _city.setText(citynew);
                         animatefadeInTxt(_city);
-                    }else {_city.setText(city);}
+                    }else {
+                        animatefadeInTxt(_city);
+                        _city.setText(city);}
 
                     if (country.equals("LK")) {
                         country = "Sri Lanka";

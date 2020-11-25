@@ -172,13 +172,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
-
+        progressBar.setVisibility(View.VISIBLE);
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
                         if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(getApplicationContext(), WeatherApp.class);
@@ -201,7 +202,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.regLink:startActivity(new Intent(this, RegisterActivity.class));
+            case R.id.regLink:startActivity(new Intent(this, RegisterActivity.class));finish();
                 break;
             case  R.id.LoginBtn:loginUser();
                 break;
