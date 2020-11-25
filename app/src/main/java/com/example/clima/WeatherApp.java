@@ -19,7 +19,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -56,10 +58,10 @@ public class WeatherApp extends AppCompatActivity {
     RequestQueue requestQueue;
 
     TextView _city, _description, _country, _temp, _windspeed, _sunrisetxt, _sunsettxt, _name, _greeting;
-    Double _lon, _lat;
-    ImageView _icon, _night, _day;
+    EditText _searchTxt;
+    String _lon, _lat;
+    ImageView _icon, _night, _day, _logout, _searchBtn;
     View _mainBg;
-    Button _logout;
     LinearLayout _wind, _sunrise, _sunset;
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -83,9 +85,11 @@ public class WeatherApp extends AppCompatActivity {
         _wind = (LinearLayout) findViewById(R.id.wind);
         _sunrise = (LinearLayout) findViewById(R.id.sunrise);
         _sunset = (LinearLayout) findViewById(R.id.sunset);
-        _logout = findViewById(R.id.logout);
+        _logout = (ImageView) findViewById(R.id.logout);
         _name = findViewById(R.id.Name);
         _greeting = findViewById(R.id.Greeting);
+        _searchTxt = (EditText) findViewById(R.id.searchTxt);
+        _searchBtn = (ImageView) findViewById(R.id.searchBtn);
 
 
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -101,6 +105,20 @@ public class WeatherApp extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        _searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String txt = _searchTxt.getText().toString();
+                Log.d("BUTTON CLICKED---------------------", String.valueOf(txt));
+                GetWeather("null", "null", txt);
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        });
 
 
         _logout.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +173,7 @@ public class WeatherApp extends AppCompatActivity {
     }
 
     public void _getLocation() {
+        Log.d("LOCATION", "_getLocation: CALLED");
         if (ActivityCompat.checkSelfPermission
                 (WeatherApp.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                 (WeatherApp.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -177,14 +196,14 @@ public class WeatherApp extends AppCompatActivity {
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
 
-            _lon = longitude;
-            _lat = latitude;
+            _lon = String.valueOf(longitude);
+            _lat = String.valueOf(latitude);
             Log.d("Method", String.valueOf(_lon));
             Log.d("Method", String.valueOf(_lat));
 
         }
         else {
-            Toast.makeText(WeatherApp.this, "No Location", Toast.LENGTH_LONG).show();
+            Toast.makeText(WeatherApp.this, "No Location. Enable GPS!", Toast.LENGTH_LONG).show();
         }
 
 
@@ -208,11 +227,18 @@ public class WeatherApp extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d("Resume", "In Resume ");
-        String lati = _lat.toString();
-        String longi = _lon.toString();
+        try {
+
+//        String lati = _lat.toString();
+//        String longi = _lon.toString();
+
+            GetWeather(_lat,_lon,"null");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Waiting for GPS Data. Try Search City", Toast.LENGTH_SHORT).show();
+        }
 
 
-        GetWeather(lati,longi);
 
 
     }
@@ -229,9 +255,22 @@ public class WeatherApp extends AppCompatActivity {
         Animation animFadeIn = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
         txt.startAnimation(animFadeIn);
     }
-    public void GetWeather(String lati, String longi)
+    public void GetWeather(String lati, String longi, String txt)
     {
-        String URL = "https://api.openweathermap.org/data/2.5/weather?lat="+lati+"&lon="+longi+"&units=metric&appid=0a43a3ebfefe8ef672268c156b88cf64";
+        Log.d("GET WEATHER TXT RECEVIED-----------------", String.valueOf(txt));
+        String URL = null;
+        if(lati.equals("null") && longi.equals("null") && txt.equals("null"))
+        {
+            Toast.makeText(this, "Waiting for GPS Data. Try Search City", Toast.LENGTH_SHORT).show();
+        }
+        else if(lati.equals("null") && longi.equals("null"))
+        {
+            URL = "https://api.openweathermap.org/data/2.5/weather?q="+txt+"&units=metric&appid=0a43a3ebfefe8ef672268c156b88cf64";
+        }
+        else{
+            URL = "https://api.openweathermap.org/data/2.5/weather?lat="+lati+"&lon="+longi+"&units=metric&appid=0a43a3ebfefe8ef672268c156b88cf64";
+        }
+        Log.d("GET WEATHER", "GetWeather: Called");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -304,6 +343,7 @@ public class WeatherApp extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("RESPONSE", String.valueOf(error));
+                Toast.makeText(WeatherApp.this, "Enter A Valid City Name", Toast.LENGTH_SHORT).show();
             }
         });
 
